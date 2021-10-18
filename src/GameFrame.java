@@ -3,11 +3,10 @@ import java.awt.*;
 
 public class GameFrame extends JFrame {
 
-    public GameFrame(){
-
-        this.add(new GamePanel());
-        this.setTitle("Snake");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public GameFrame(boolean isBorderless, int delay){        
+        this.add(new GamePanel(isBorderless, delay));
+        this.setTitle("Snake");        
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setResizable(false);
         this.pack();
         this.setVisible(true);
