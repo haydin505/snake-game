@@ -81,10 +81,10 @@ public class MainMenuFrame  extends JFrame implements ActionListener, ItemListen
         hardButton.addActionListener(this);
         hardButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
 
-        // ButtonGroup group = new ButtonGroup();
-        // group.add(easyButton);
-        // group.add(normalButton);
-        // group.add(hardButton);
+        ButtonGroup group = new ButtonGroup();
+        group.add(easyButton);
+        group.add(normalButton);
+        group.add(hardButton);
 
         JLabel difficultyLabel = new JLabel("Difficulty", JLabel.CENTER);
         difficultyLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));

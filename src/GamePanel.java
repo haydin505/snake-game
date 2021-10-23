@@ -39,14 +39,41 @@ public class GamePanel extends JPanel implements ActionListener {
         direction = 'R';
         applesEaten = 0;
         running = true;
-        newApple();
+        newApple();        
         timer = new Timer(delay, this);
         timer.start();
     }
 
+    @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         draw(g);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(running){
+            move();
+            checkApple();
+            if(!isBorderless){
+                checkBorderCollision();
+            }else{
+                if(y[0] > SCREEN_HEIGHT - UNIT_SIZE){
+                    y[0] = 0;
+                }
+                if(y[0] < 0){
+                    y[0] = SCREEN_HEIGHT;
+                }
+                if(x[0] > SCREEN_WIDTH - UNIT_SIZE){
+                    x[0] = 0;
+                }
+                if(x[0] < 0){
+                    x[0] = SCREEN_WIDTH;
+                }
+            }
+            checkHeadCollision();
+        }
+        this.repaint();
     }
 
     public void draw(Graphics g){        
@@ -111,8 +138,8 @@ public class GamePanel extends JPanel implements ActionListener {
                 x[0] = x[0] + UNIT_SIZE;
                 break;
         }
-
     }
+
     public void checkApple(){
         if(x[0] == appleX && y[0] == appleY){
             bodyParts++;
@@ -151,8 +178,8 @@ public class GamePanel extends JPanel implements ActionListener {
         if(!running){
             timer.stop();
         }
-
     }
+
     public void gameOver(Graphics g){               
         // // Score
         // g.setColor(Color.red);
@@ -213,34 +240,6 @@ public class GamePanel extends JPanel implements ActionListener {
        g.drawString("Highest Score: " + highestScore, (SCREEN_WIDTH - metrics4.stringWidth("Highest Score: " + highestScore))/2, g.getFont().getSize()*5);
     }
 
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(running){
-            move();
-            checkApple();
-            if(!isBorderless){
-                checkBorderCollision();
-            }else{
-                if(y[0] > SCREEN_HEIGHT - UNIT_SIZE){
-                    y[0] = 0;
-                }
-                if(y[0] < 0){
-                    y[0] = SCREEN_HEIGHT;
-                }
-                if(x[0] > SCREEN_WIDTH - UNIT_SIZE){
-                    x[0] = 0;
-                }
-                if(x[0] < 0){
-                    x[0] = SCREEN_WIDTH;
-                }
-            }
-            checkHeadCollision();
-        }
-        repaint();
-    }
-
     public class MyKeyAdapter extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e){
@@ -275,7 +274,6 @@ public class GamePanel extends JPanel implements ActionListener {
             if(!running){                
                 startGame();
             }
-
         }
     }
 }
